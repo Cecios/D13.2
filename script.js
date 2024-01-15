@@ -1,8 +1,7 @@
-import {displayCards,addClickBtn} from './components.js';
+import {displayCards,addClickBtn,addOnKeyUp} from './components.js';
 
 const cards = document.querySelector('.cards .row');
-
-
+const search = document.getElementById('search');
 
 fetch('https://striveschool-api.herokuapp.com/books',{
 headers: {
@@ -17,7 +16,9 @@ headers: {
         cards.innerHTML += displayCards(item.img, item.title, item.asin)
         
     })    
-    addClickBtn(items)
+    addClickBtn(items);
+    addOnKeyUp(search);
+
 })
 
 .catch((error) => console.error(error));

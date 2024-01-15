@@ -1,6 +1,7 @@
 let array = [];
 let cart = [];
 const listaCart = document.getElementById('listaCart');
+// ******* EXPORT *******
 export const  displayCards = (pics,detail,asin) => {
             return `<div class="col-6 col-md-4 col-lg-3">
         <div class="card w-100">
@@ -28,6 +29,12 @@ export const addClickBtn = (obj) => {
     const addClickBtn = document.querySelectorAll('.cards a.btn')
     addClickBtn.forEach((element) => element.onclick = addToCart)
 };
+//AGGIUNGO EVENTO ONCLICK
+export const addOnKeyUp = (search)=>{
+    return search.onkeyup = searchCheck
+}
+// ******* EXPORT *******
+
 // FUNZIONE AGGIUNGI/TOGLI CARRELLO
  const addToCart = function (event) {
     let targetId = event.target.id
@@ -62,6 +69,7 @@ export const addClickBtn = (obj) => {
     }
     
 }
+
 const updateCartView = function () {
     listaCart.innerHTML = ""; 
     cart.forEach((item) => {
@@ -74,4 +82,9 @@ const addCartList = function(id){
         li.textContent = id
         listaCart.appendChild(li)
 }
+
+// FUNZIONE BARRA RICERCA
+const searchCheck = function (event) {
+        console.log(event.target.value);
+};
 
