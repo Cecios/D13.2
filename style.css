@@ -5,3 +5,6 @@ ion-icon[name="cart-outline"] {
   ion-icon[name="cart-outline"]:hover {
     transform: scale(1.3);
   }
+.addToCart{
+  border: solid 2.5px green!important;
+}

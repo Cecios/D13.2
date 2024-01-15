@@ -30,14 +30,22 @@ export const addClickBtn = (obj) => {
 };
 // FUNZIONE AGGIUNGI CARRELLO
  const addToCart = function (event) {
-    let id = parseInt(event.target.id)
-    const check = cart.find((element)=> element === id)
+    let targetId = event.target.id
+    let target = event.target
+    const check = cart.find((element)=> element === targetId)
     if (check) {
         console.log("elemento già presente",cart);
     }
     else{
-        const nuovoElemento = id
-        cart.push(nuovoElemento);
+        cart.push(targetId);
+        let currentElement = target
+        while (currentElement && !currentElement.classList.contains('card')) {
+            currentElement = currentElement.parentNode
+        }
+        if (currentElement) {
+            currentElement.classList.add('addToCart')
+            console.log(currentElement);
+        }
         console.log(event.target.parentNode.parentNode.parentNode.classList.value);
         console.log('elemento aggiunto',cart);
     }
