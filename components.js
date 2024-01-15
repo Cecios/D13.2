@@ -71,7 +71,7 @@ export const addOnKeyUp = (search)=>{
 }
 
 const updateCartView = function () {
-    listaCart.innerHTML = "Libri nel carrello:"+cart.length; 
+    listaCart.innerHTML = cart.length === 0 ? 'Il tuo carrello è vuoto' : `${cart.length} libri nel carrello`; 
     cart.forEach((item) => {
       addCartList(item);
     });
