@@ -28,7 +28,7 @@ export const addClickBtn = (obj) => {
     const addClickBtn = document.querySelectorAll('.cards a.btn')
     addClickBtn.forEach((element) => element.onclick = addToCart)
 };
-// FUNZIONE AGGIUNGI CARRELLO
+// FUNZIONE AGGIUNGI/TOGLI CARRELLO
  const addToCart = function (event) {
     let targetId = event.target.id
     let target = event.target
@@ -38,8 +38,8 @@ export const addClickBtn = (obj) => {
     if (check > -1) {
         console.log("elemento già presente",cart);
         cart.splice(check,1)
+        updateCartView();
         console.log("elemento rimosso",cart);
-
         while (currentElement && !currentElement.classList.contains('card')) {
             currentElement = currentElement.parentNode
         }
@@ -49,7 +49,8 @@ export const addClickBtn = (obj) => {
     }
     else{
         cart.push(targetId);
-        
+        updateCartView();
+
         while (currentElement && !currentElement.classList.contains('card')) {
             currentElement = currentElement.parentNode
         }
@@ -59,4 +60,18 @@ export const addClickBtn = (obj) => {
         }
         console.log('elemento aggiunto',cart);
     }
+    
 }
+const updateCartView = function () {
+    listaCart.innerHTML = ""; 
+    cart.forEach((item) => {
+      addCartList(item);
+    });
+  };
+// FUNZIONE AGGIUNGI LISTA AL CARRELLO
+const addCartList = function(id){
+        const li = document.createElement("li")
+        li.textContent = id
+        listaCart.appendChild(li)
+}
+
