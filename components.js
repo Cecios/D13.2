@@ -32,13 +32,24 @@ export const addClickBtn = (obj) => {
  const addToCart = function (event) {
     let targetId = event.target.id
     let target = event.target
-    const check = cart.find((element)=> element === targetId)
-    if (check) {
+    let currentElement = target
+    const check = cart.findIndex((element)=> element === targetId)
+
+    if (check > -1) {
         console.log("elemento già presente",cart);
+        cart.splice(check,1)
+        console.log("elemento rimosso",cart);
+
+        while (currentElement && !currentElement.classList.contains('card')) {
+            currentElement = currentElement.parentNode
+        }
+        if (currentElement) {
+            currentElement.classList.remove('addToCart')
+        }
     }
     else{
         cart.push(targetId);
-        let currentElement = target
+        
         while (currentElement && !currentElement.classList.contains('card')) {
             currentElement = currentElement.parentNode
         }
@@ -46,9 +57,6 @@ export const addClickBtn = (obj) => {
             currentElement.classList.add('addToCart')
             console.log(currentElement);
         }
-        console.log(event.target.parentNode.parentNode.parentNode.classList.value);
         console.log('elemento aggiunto',cart);
     }
-    // const found = array.find((x)=>x.asin === event.target.id)
-    // console.log(check);
 }
