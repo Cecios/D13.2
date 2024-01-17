@@ -12,50 +12,35 @@ export const addClickBtn = (obj) => {
     clickBtn.forEach((element) => element.onclick = handleClick
     )};
 
-    const addToCart =  (event,obj) => {
-    console.log(obj);
-    let targetId = event.target.id
-    let target = event.target
-    let currentElement = target
-    const check = cart.findIndex((element)=> element === targetId)
-    if (check > -1) {
-            console.log("elemento già presente",cart);
-            cart.splice(check,1)
-            updateCartView();
-            console.log("elemento rimosso",cart);
-        while (currentElement && !currentElement.classList.contains('card')) {
-            currentElement = currentElement.parentNode
+        const addToCart =  (event) => {
+        let obj = cercaID(event)
+        const check = cart.findIndex((element)=> element === obj.id )
+        if (check > -1) {
+                console.log("elemento già presente",cart);
+                cart.splice(check,1)
+                updateCartView();
+                obj ? obj.classList.remove('addToCart') : null;
+                console.log("elemento rimosso",cart);
         }
-        if (currentElement) {
-            currentElement.classList.remove('addToCart')
-        }
-    }
-    else{
-        cart.push(targetId);
-        updateCartView();
+        else{
+                cart.push(obj.id);
+                updateCartView();
+                obj ? obj.classList.add('addToCart') : null;
+                console.log('elemento aggiunto',cart);
+        } 
+    };
 
-        while (currentElement && !currentElement.classList.contains('card')) {
-            currentElement = currentElement.parentNode
-        }
-        if (currentElement) {
-            currentElement.classList.add('addToCart')
-            console.log(currentElement);
-        }
-        console.log('elemento aggiunto',cart);
-    } 
-};
-
- const updateCartView =  () => {
-    listaCart.innerHTML = cart.length === 0 ? 'Il tuo carrello è vuoto' : `${cart.length} libri nel carrello`; 
-    cart.forEach((item) => {
-      addCartList(item);
-    });
-  };
-export const addCartList = (id) => {
-    const li = document.createElement("li")
-    li.textContent = id
-    listaCart.appendChild(li)
-};
+    const updateCartView =  () => {
+        listaCart.innerHTML = cart.length === 0 ? 'Il tuo carrello è vuoto' : `${cart.length} libri nel carrello`; 
+        cart.forEach((item) => {
+        addCartList(item);
+        });
+    };
+    export const addCartList = (id) => {
+        const li = document.createElement("li")
+        li.textContent = id
+        listaCart.appendChild(li)
+    };
 
 
 // ************* BUTTON "SALTA"  ************* //
@@ -65,20 +50,26 @@ export const addSkipBtn = () => {
      );
 };
 const skipCard = (event) => {
+    let obj = cercaID(event);
+    obj ? obj.classList.add('d-none') : null;
+};
+
+// ************* BUTTON "DETTAGLI"  ************* //
+export const addDetailsBtn = () => {
+    const detailsBtn = document.querySelectorAll('.cards .btnDetails')
+    detailsBtn.forEach((element) => { element.onclick = openPage  
+    });
+}
+const openPage = function(event){
+    let obj = cercaID(event)
+    console.log(obj.id);
+    window.location.href = 'dettagli.html?id=' + obj.id
+  }
+
+  const cercaID = (event) => {
     let currentElement = event.target
     while (currentElement && !currentElement.classList.contains('card')) {
             currentElement = currentElement.parentNode
     }
-    if (currentElement) {
-        currentElement.classList.add('d-none')
-    }
-};
-
-// ************* BUTTON "DETTAGLI"  ************* //
-export const addDetailsBtn = (event) => {
-    console.log(event);
-    openPage
-}
-const openPage = function(){
-    window.location.href = 'dettagli.html?id=' + id
+    return currentElement
   }
