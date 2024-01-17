@@ -1,5 +1,6 @@
-import {displayCards,addClickBtn,addOnKeyUp} from './components.js';
-
+import {displayCards} from './components.js';
+import {addSkipBtn,addClickBtn} from './btn.js';
+import {addOnKeyUp} from './search.js';
 const cards = document.querySelector('.cards .row');
 const search = document.getElementById('search');
 
@@ -17,6 +18,7 @@ headers: {
         
     })    
     addClickBtn(items);
+    addSkipBtn();
     addOnKeyUp(search);
 
 })
