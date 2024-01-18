@@ -22,7 +22,7 @@ headers: {
     addOnKeyUp(search);
 })
 
-.catch((error) => console.error(error));
+.catch((error) => console.alert(error));
 
 
 
